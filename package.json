@@ -1,0 +1,25 @@
+{
+  "name": "node-translator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint 'src/**/*.js?(x)'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vitalets/google-translate-api": "^7.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "hbs": "^4.1.2",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.12",
+    "requests": "^0.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.24.0"
+  }
+}
