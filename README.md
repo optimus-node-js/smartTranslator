@@ -1,6 +1,3 @@
-It seems there was an issue with generating the `README.txt` file. I can provide the text content here, and you can copy it to a text file on your system:
-
-```plaintext
 # Smart Translator
 
 Smart Translator is a robust translation application that utilizes the power of Google Translate API and MongoDB to provide efficient and real-time language translation. This application is designed to first check the database for existing translations, and if not found, fetch translations from Google API while caching them for future requests. This strategy enhances performance and reduces API calls, making the application both fast and cost-effective.
