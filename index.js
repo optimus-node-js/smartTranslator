@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const translate = require("@vitalets/google-translate-api");
 
-const app = express();
+
 // bodyparser used so we can parse the json
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
