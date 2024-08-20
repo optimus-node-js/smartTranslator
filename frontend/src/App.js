@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>Translate Text</h1>
+      <h1>Smart Translator</h1>
       <TranslateForm />
     </div>
   );
