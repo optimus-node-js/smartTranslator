@@ -1,4 +1,4 @@
-// TranslateForm.js
+// TranslateForm.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, Select, MenuItem, Typography, Box } from '@mui/material';
@@ -121,7 +121,7 @@ const TranslateForm = () => {
     console.log("Translate button clicked!");
     if (speech.trim()) {
       try {
-        const response = await axios.post('http://localhost:5000/', {
+        const response = await axios.post('https://smart-translator-backend-ghz8r38u6-rahulgifasus-projects.vercel.app', {
           speech,
           languageFrom,
           languageTo,

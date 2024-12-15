@@ -19,6 +19,11 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
   .then(() => console.log("MongoDB Connected..."))
   .catch(err => console.log("MongoDB connection error:", err));
 
+// Root route
+app.get('/', (req, res) => {
+  res.send('Smart Translator Backend is Running!');
+});
+
 // Single endpoint for translation
 app.post('/', translationController.getTranslation);
 
