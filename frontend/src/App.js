@@ -1,7 +1,7 @@
 import React from 'react';
 import TranslateForm from './components/TranslateForm';
 import './App.css';
-
+console.log('this is charlie')
 function App() {
   return (
     <div className="App">
