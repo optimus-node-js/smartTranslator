@@ -5,3 +5,6 @@
 # build output
 /frontend/dist
 .env
+
+.vercel
+.env*
