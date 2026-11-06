@@ -1,8 +1,8 @@
 # SmartTranslator
 
-**SmartTranslator** is a powerful, real-time translation application designed to translate text between 105 languages. Built with a modern tech stack using Node.js for the backend and React.js for the frontend, this application leverages the power of Google Translate API to deliver fast and accurate translations.
-
 **Live:** [smart-translator.vercel.app](https://smart-translator.vercel.app)
+
+**SmartTranslator** is a powerful, real-time translation application designed to translate text between 105 languages. Built with a modern tech stack using Node.js for the backend and React.js for the frontend, this application leverages the power of Google Translate API to deliver fast and accurate translations.
 
 ## Features
 
