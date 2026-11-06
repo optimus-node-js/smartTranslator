@@ -2,37 +2,33 @@ const { translate } = require('@vitalets/google-translate-api');
 const Translation = require('../models/translationModel');
 
 exports.getTranslation = async (req, res) => {
-  const { speech, languageFrom, languageTo } = req.body;
-  console.log(`Received request: ${JSON.stringify(req.body)}`);
+  const speech = String(req.body?.speech || '').trim();
+  const languageFrom = String(req.body?.languageFrom || 'auto');
+  const languageTo = String(req.body?.languageTo || '');
+
+  if (!speech || !languageTo) return res.status(400).json({ error: 'Text and target language are required' });
+  if (speech.length > 5000) return res.status(400).json({ error: 'Text is too long (max 5000 characters)' });
 
   try {
-    // Check if translation exists in the database
-    let translation = await Translation.findOne({ word: speech, language: languageTo });
-
-    if (translation) {
-      console.log("Fetched from Database");
-      return res.json({ translated: translation.answer });
+    if (req.dbReady) {
+      const cached = await Translation.findOne({ word: speech, from: languageFrom, language: languageTo }).lean();
+      if (cached) return res.json({ translated: cached.answer, cached: true });
     }
 
-    console.log(`Translating: ${speech} from ${languageFrom} to ${languageTo}`);
-    
-    // Use Google Translate API
     const response = await translate(speech, { from: languageFrom, to: languageTo });
 
-    // Store translation in the database
-    translation = new Translation({
-      word: speech,
-      language: languageTo,
-      answer: response.text
-    });
+    if (req.dbReady) {
+      Translation.create({ word: speech, from: languageFrom, language: languageTo, answer: response.text }).catch((err) =>
+        console.error('Cache write failed:', err.message)
+      );
+    }
 
-    await translation.save();
-    console.log("Saved to Database");
-
-    res.json({ translated: response.text });
-
+    res.json({ translated: response.text, cached: false });
   } catch (error) {
-    console.error("Translation Error: ", error);
-    res.status(500).json({ error: 'Translation failed' });
+    console.error('Translation error:', error.message);
+    const rateLimited = /429|Too Many Requests/i.test(error.message || '');
+    res.status(rateLimited ? 429 : 502).json({
+      error: rateLimited ? 'The translation service is busy, please try again in a minute' : 'Translation failed, please try again',
+    });
   }
 };

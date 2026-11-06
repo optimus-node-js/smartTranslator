@@ -1,12 +1,18 @@
 {
-    "name": "smarttranslator",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-        "start": "concurrently \"npm start --prefix backend\" \"npm start --prefix frontend\"",
-        "install-all": "npm install --prefix backend && npm install --prefix frontend"
-    },
-    "devDependencies": {
-        "concurrently": "^8.2.2"
-    }
+  "name": "smart-translator",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Real-time translator for 100+ languages with a MongoDB translation cache",
+  "scripts": {
+    "postinstall": "cd backend && npm install --no-audit --no-fund --omit=dev && cd ../frontend && npm install --no-audit --no-fund --include=dev",
+    "build": "cd frontend && npm run build",
+    "start": "node backend/index.js",
+    "dev": "concurrently -n api,web \"cd backend && npm run dev\" \"cd frontend && npm run dev\""
+  },
+  "engines": {
+    "node": "26.x"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
 }

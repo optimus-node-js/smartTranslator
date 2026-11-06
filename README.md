@@ -9,61 +9,27 @@
 - **Multi-Language Support:** Includes major languages such as English, Spanish, French, German, Hindi, Chinese, and many more.
 - **Seamless Integration:** Combines backend and frontend for a smooth translation experience.
 
-## Installation
-
-### Clone the Repository
+## Run locally
 
 ```bash
 git clone https://github.com/optimus-node-js/smartTranslator.git
 cd smartTranslator
+npm install          # installs backend and frontend
+npm run dev          # API on :5000, app on :4000 (proxied)
 ```
 
-### Backend Setup
+MongoDB is optional. Set `MONGODB_URI` in `backend/.env` to cache translations; without it the app translates directly.
 
-1. Navigate to the backend directory:
+## API
 
-    ```bash
-    cd backend
-    ```
+| Method | Endpoint | Body | Response |
+|---|---|---|---|
+| `POST` | `/api/translate` | `{ speech, languageFrom, languageTo }` | `{ translated, cached }` |
+| `GET` | `/api/health` | | `{ ok, cache }` |
 
-2. Install dependencies:
+## Deploy
 
-    ```bash
-    npm install
-    ```
-
-3. Create a `.env` file in the backend directory and configure your environment variables:
-
-    ```plaintext
-    MONGO_URI=your_mongodb_connection_string
-    PORT=5000
-    ```
-
-4. Start the backend server:
-
-    ```bash
-    npm start
-    ```
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-
-    ```bash
-    cd frontend
-    ```
-
-2. Install dependencies:
-
-    ```bash
-    npm install
-    ```
-
-3. Start the frontend application:
-
-    ```bash
-    npm start
-    ```
+One Vercel project from the repo root: `vercel.json` builds `frontend/dist` and serves the Express API from `api/index.js`. Optional env var: `MONGODB_URI`.
 
 ## Usage
 
@@ -89,14 +55,6 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 ## Acknowledgements
 
 - Thanks to the developers of [Google Translate API](https://www.npmjs.com/package/@vitalets/google-translate-api) for providing the translation service.
-
-### Key Additions:
-- **Features Section:** Highlighted the real-time translation feature and 105 language support.
-- **Installation Instructions:** Detailed steps for setting up both backend and frontend.
-- **Usage Guide:** Instructions on how to use the application.
-- **Technology Stack:** Listed the technologies used in the project.
-
----
 
 ## Author
 

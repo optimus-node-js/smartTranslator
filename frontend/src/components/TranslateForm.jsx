@@ -121,7 +121,7 @@ const TranslateForm = () => {
     console.log("Translate button clicked!");
     if (speech.trim()) {
       try {
-        const response = await axios.post('https://smart-translator-backend-ghz8r38u6-rahulgifasus-projects.vercel.app', {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL || ''}/api/translate`, {
           speech,
           languageFrom,
           languageTo,
@@ -130,6 +130,7 @@ const TranslateForm = () => {
         setTranslated(response.data.translated);
       } catch (error) {
         console.error("There was an error translating the text!", error);
+        setTranslated(error.response?.data?.error || 'Translation failed, please try again.');
       }
     }
   };

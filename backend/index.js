@@ -1,32 +1,44 @@
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const dotenv = require('dotenv');
-const bodyParser = require('body-parser');
 const translationController = require('./controllers/translationController');
-
-dotenv.config();
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json({ limit: '50kb' }));
 
-const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI;
+// MongoDB is an optional cache: translations still work when it is not configured or unreachable.
+const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGO_URI;
+let dbPromise = null;
+function connectDB() {
+  if (!MONGODB_URI) return Promise.resolve(false);
+  if (!dbPromise) {
+    dbPromise = mongoose
+      .connect(MONGODB_URI, { serverSelectionTimeoutMS: 8000 })
+      .then(() => true)
+      .catch((err) => {
+        console.error('MongoDB unavailable, continuing without cache:', err.message);
+        dbPromise = null;
+        return false;
+      });
+  }
+  return dbPromise;
+}
 
-// Connect to MongoDB
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB Connected..."))
-  .catch(err => console.log("MongoDB connection error:", err));
-
-// Root route
-app.get('/', (req, res) => {
-  res.send('Smart Translator Backend is Running!');
+app.use(async (req, res, next) => {
+  req.dbReady = await connectDB();
+  next();
 });
 
-// Single endpoint for translation
-app.post('/', translationController.getTranslation);
+app.get(['/api', '/api/health'], (req, res) => res.json({ ok: true, service: 'smart-translator', cache: req.dbReady }));
+app.post(['/api/translate', '/'], translationController.getTranslation);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Smart Translator API on ${PORT}`));
+}
+
+module.exports = app;
