@@ -90,7 +90,6 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 - Thanks to the developers of [Google Translate API](https://www.npmjs.com/package/@vitalets/google-translate-api) for providing the translation service.
 
-
 ### Key Additions:
 - **Features Section:** Highlighted the real-time translation feature and 105 language support.
 - **Installation Instructions:** Detailed steps for setting up both backend and frontend.
@@ -99,13 +98,12 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ---
 
-## 👤 Author
+## Author
 
-**Rahul Vishwakarma** — Senior Full Stack Developer · Ahmedabad, India
+**Rahul Vishwakarma**, Senior Full Stack Developer based in Ahmedabad, India
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-rahul--vishwakarma--portfolio.vercel.app-0A66C2?style=flat-square&logo=vercel&logoColor=white)](https://rahul-vishwakarma-portfolio.vercel.app/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Rahul%20Vishwakarma-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/rahul-vishwakarma-101346192)
 [![Email](https://img.shields.io/badge/Email-karmarahul67%40gmail.com-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:karmarahul67@gmail.com)
 [![GitHub](https://img.shields.io/badge/GitHub-optimus--node--js-181717?style=flat-square&logo=github)](https://github.com/optimus-node-js)
 
-If you find this project useful, consider giving it a ⭐.
